@@ -25,9 +25,7 @@ client.connect(err => {
   const logoCollection = client.db("LogoLand").collection("logos-info");
   // perform actions on the collection object
 //getting images from database
-app.get('/', (req, res) => {
-  res.send("Hello it's working!")
-})
+
   app.get('/addImage', (req, res)=> {
       logoCollection.find()
       .toArray((err, items) => {
