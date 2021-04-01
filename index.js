@@ -46,7 +46,7 @@ client.connect(err => {
   })
   //deleting
     app.delete('/deleteLogo/:id', (req, res) => {
-      const id = (req.params.id);//ObjectID
+      const id = ObjectID(req.params.id);//
       console.log("delete:", id);
       logoCollection.findOneAndDelete({_id: id})
       .then(documents => res.send(!!documents.value))
