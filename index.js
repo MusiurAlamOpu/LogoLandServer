@@ -49,7 +49,7 @@ client.connect(err => {
       const id = ObjectID(req.params.id);//
       console.log("delete:", id);
       logoCollection.findOneAndDelete({_id: id})
-      .then(documents => res.redirect('../'))
+      .then(documents => res.redirect('../ManageLogo'))
     })
 //posting order details
 app.post('/addOrder', (req, res) => {
