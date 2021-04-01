@@ -62,6 +62,13 @@ app.post('/addOrder', (req, res) => {
   })
 })
   console.log("connected");
+  app.get('/addOrder', (req, res)=> {
+    ordersCollection.find()
+    .toArray((err, items) => {
+        res.send(items);
+        console.log(items);
+    })
+})
 //   client.close();
 });
 
