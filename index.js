@@ -23,6 +23,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 client.connect(err => {
     console.log("Connection error: ", err);
   const logoCollection = client.db("LogoLand").collection("logos-info");
+  const ordersCollection = client.db("LogoLand").collection("orders");
   // perform actions on the collection object
 //getting images from database
 
@@ -33,7 +34,7 @@ client.connect(err => {
           console.log(items);
       })
   })
-//posting images from database one by one
+//posting new Image
   app.post('/addImage', (req, res) => {
       const newImage = req.body;
       console.log("adding new Image", newImage);
@@ -43,24 +44,23 @@ client.connect(err => {
           res.send(result.insertedCount > 0)
       })
   })
-
-  // app.delete('/deleteLogo/:id', (req, res) => {
-  //   console.log(req.params.id);
-  //   logoCollection.deleteOne({_id:ObjectId(req.params.id)})
-  //   .then((err, result) => {
-  //     console.log(err);
-  //   })
+  //deleting
     app.delete('deleteLogo/:id', (req, res) => {
       const id = ObjectID(req.params.id);
       console.log("delete:", id);
       logoCollection.findOneAndDelete({_id: id})
       .then(documents => res.send(!!documents.value))
     })
-//   app.get('/addImage', (req, res) => {
-//       const images = req.body;
-//       console.log("Images::::::::::::::::",images);
-//       res.send("hello");
-//   })
+//posting order details
+app.post('/addOrder', (req, res) => {
+  const order = req.body;
+  console.log("adding new Image", order);
+  ordersCollection.insertOne(order)
+  .then(result =>{
+      console.log("Inserted Count", result.insertedCount);
+      res.send(result.insertedCount > 0);
+  })
+})
   console.log("connected");
 //   client.close();
 });
